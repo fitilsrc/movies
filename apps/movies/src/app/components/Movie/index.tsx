@@ -9,8 +9,10 @@ const Movie = (data: any) => {
   const { formatDate } = useApi();
   return (
     <div className="w-full sm:w-1/3-1 md:w-1/4-1 lg:w-1/5-1 flex flex-col overflow-hidden rounded-lg select-none"> 
-      <div className='object-cover outline-none border-0 relative'>
-        <img className='w-full' src={movie.image} alt={movie.name} />
+      <div className='outline-none border-0 relative'>
+        <div className="w-full h-80 overflow-hidden block relative">
+          <img className='object-cover w-full h-full' src={movie.image} alt={movie.name} />
+        </div>
         <div className='font-sans text-base rounded-full font-semibold bg-black absolute left-3 bottom-0 transform translate-y-1/2 text-white flex justify-center items-center w-9 h-9'>
           <div className='w-8 h-8 border-4 border-green-700 flex justify-center items-center rounded-full'>{movie.rating}</div>
         </div>

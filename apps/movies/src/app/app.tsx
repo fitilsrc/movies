@@ -20,7 +20,7 @@ export function App() {
       let result = await fetchMovies()
       dispatch({
         type: 'get_movies',
-        payload: result.movies,
+        payload: result,
       });
     }
     getAllMovies()

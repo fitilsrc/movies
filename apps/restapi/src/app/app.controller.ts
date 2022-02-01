@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 
 import { AppService } from './app.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { IMovie } from './interfaces/movies.interface';
+import { MovieDto } from './dto/create-movie.dto';
 
 @Controller()
 export class AppController {
@@ -12,9 +11,16 @@ export class AppController {
   getData() {
     return this.appService.getData();
   }
-
+  
   @Post()
-  create(@Body() createMovieDto: CreateMovieDto): Promise<IMovie> {
-    return this.appService.create(createMovieDto);
+  createMovie(@Body() movie: MovieDto) {
+    console.log('create product', movie);
+    this.appService.createMovie(movie);
+  }
+
+  @Put()
+  updateMovie(@Body() movie: MovieDto) {
+    console.log('update product', movie);
+    // this.productsService.updateProduct(product);
   }
 }

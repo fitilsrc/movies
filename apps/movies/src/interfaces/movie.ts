@@ -3,7 +3,7 @@ export default interface IMovie {
     date: string,
     image: string,
     name: string,
-    rating: number
+    rating: string
 }
 
 export interface IMoviesActions {
