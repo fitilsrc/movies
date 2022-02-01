@@ -21,6 +21,6 @@ export class AppController {
   @Put()
   updateMovie(@Body() movie: MovieDto) {
     console.log('update product', movie);
-    // this.productsService.updateProduct(product);
+    this.appService.updateProduct(movie);
   }
 }

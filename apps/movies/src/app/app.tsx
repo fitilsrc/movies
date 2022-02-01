@@ -32,6 +32,7 @@ export function App() {
         <Route index element={<Movies />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="add" element={<Addmovie />} />
+        <Route path="edit/:id" element={<Addmovie />} />
       </Route>
     </Routes>
   );

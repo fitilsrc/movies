@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import IMovie from 'apps/movies/src/interfaces/movie';
 import useApi from '../../useApi';
+import { Link } from 'react-router-dom';
 
 
 const Movie = (data: any) => {
@@ -10,6 +11,14 @@ const Movie = (data: any) => {
   return (
     <div className="w-full sm:w-1/3-1 md:w-1/4-1 lg:w-1/5-1 flex flex-col overflow-hidden rounded-lg select-none"> 
       <div className='outline-none border-0 relative'>
+        <Link
+          className='absolute top-2 right-2 z-50 rounded-full bg-white bg-opacity-50 w-9 h-9 flex justify-center items-center hover:bg-dark-blue'
+          to={`/edit/${movie.id}`}
+        >
+          <div className='w-8 h-8 border-2 rounded-full border-white flex justify-center items-center'>
+            <img className='h-4 w-4' src="/assets/edit.svg" alt="" />
+          </div>
+        </Link>
         <div className="w-full h-80 overflow-hidden block relative">
           <img className='object-cover w-full h-full' src={movie.image} alt={movie.name} />
         </div>

@@ -1,40 +1,73 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { transliterate as tr, slugify } from 'transliteration';
 
 import useApi from '../../useApi';
 import { useInput } from './useForm';
 import { AppContext } from 'apps/movies/src/store';
+import { useParams } from 'react-router-dom';
 
 const Addmovie = () => {
-  const { state } = useContext(AppContext);
-  const { postMovie } = useApi();
-  const [ rating, setRating ] = useState('');
-  const { value:title, bind:bindTitle, reset:resetTitle } = useInput('');
-  const { value:cover, bind:bindCover, reset:resetCover } = useInput('');
-  const inputRating = useRef<HTMLInputElement | null>(null)
+  const { id } = useParams();
+
+  const [ edit, setEdit ] = useState(id ? true : false);
+  const [ movieId, setMovieId ] = useState<string>('');
+  const [ movieDate, setMovieDate ] = useState<string>('');
+
+  const { state, dispatch } = useContext(AppContext);
+  const { postMovie, putMovie, fetchMovies } = useApi();
+  
+  const { value:title, setValue:setTitle, bind:bindTitle, reset:resetTitle } = useInput('');
+  const { value:cover, setValue:setCover, bind:bindCover, reset:resetCover } = useInput('');
+  const { value:rating, setValue:setRating, bind:bindRating, reset:resetRating } = useInput('');
+
+  useEffect(() => {
+    if (edit) {
+      state.movies.find(
+        item=> {
+          if(item.id==id) {
+            setTitle(item.name)
+            setCover(item.image)
+            setRating(item.rating)
+            setMovieId(item.id)
+            setMovieDate(item.date)
+          }
+        }
+      )
+    }
+  }, [edit]);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log('Movie Title: ', title);
-    console.log('Movie Cover: ', cover);
-    console.log('Movie rating: ', rating);
 
-    postMovie({
-      name: title,
-      id: `${state.movies.length+1}-${slugify(title)}`,
-      date: (new Date()).toString(),
-      image: cover || '/assets/noimage.jpg',
-      rating: rating
-    })
+    if (edit) {
+      putMovie({
+        name: title,
+        id: movieId,
+        date: movieDate,
+        image: cover || '/assets/noimage.jpg',
+        rating: rating
+      })
+    } else {
+      postMovie({
+        name: title,
+        id: `${state.movies.length+1}-${slugify(title)}`,
+        date: (new Date()).toString(),
+        image: cover || '/assets/noimage.jpg',
+        rating: rating
+      })
+    }
 
     resetTitle();
     resetCover();
-    setRating('');
-  }
-
-  const handleChange = () => {
-    let ratingValue =  inputRating.current?.value || "";
-    setRating(ratingValue);
+    resetRating();
+    const getAllMovies = async() => {
+      let result = await fetchMovies()
+      dispatch({
+        type: 'get_movies',
+        payload: result,
+      });
+    }
+    getAllMovies()
   }
 
   return (
@@ -54,7 +87,7 @@ const Addmovie = () => {
           </label>
           
           <label className="flex flex-col w-full gap-2">
-            <span>Movie cover</span>
+            <span>Link to Movie cover</span>
             <input
               type="text" 
               className="w-full px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded-md focus:border-cyan-500"
@@ -65,8 +98,7 @@ const Addmovie = () => {
           <label className="flex flex-col w-full gap-2">
             <span>Movie rating</span>
             <input
-              ref={inputRating}
-              onChange={handleChange}
+              {...bindRating}
               type="number" 
               className="w-full px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded-md focus:border-cyan-500"
             />

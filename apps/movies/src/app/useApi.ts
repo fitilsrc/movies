@@ -30,10 +30,26 @@ const useApi = () => {
         }
     }
 
+    const putMovie = async(movie: IMovie) => {
+        
+        try {
+            const response = await fetch('/api', {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(movie)
+            })
+        } catch (error) {
+            return console.log('we got an error: ', error)
+        }
+    }
+
     return {
         formatDate,
         fetchMovies,
-        postMovie
+        postMovie,
+        putMovie
     }
 }
 

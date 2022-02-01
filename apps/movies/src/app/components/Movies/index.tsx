@@ -14,7 +14,6 @@ const Movies = () => {
 
   const filterMovies = (data: IMovie[]) => {
     return data.filter((item, index)=>{
-      // console.log(index);
       if (index <= page*5-1 && index >= page*5-5) {
         return item
       }
