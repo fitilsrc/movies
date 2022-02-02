@@ -23,7 +23,8 @@ export function App() {
         payload: result,
       });
     }
-    getAllMovies()
+    getAllMovies();
+    console.log('test11211');
   }, []);
   
   return (

@@ -30,7 +30,6 @@ const Addmovie = () => {
   
 
   useEffect(() => {
-    console.log(edit);
     if (edit) {
       state.movies.find(
         item=> {
