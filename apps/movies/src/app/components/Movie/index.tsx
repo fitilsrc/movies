@@ -19,7 +19,7 @@ const Movie = (data: any) => {
             <img className='h-4 w-4' src="/assets/edit.svg" alt="" />
           </div>
         </Link>
-        <div className="w-full h-80 overflow-hidden block relative">
+        <div className="w-full md:h-80 overflow-hidden block relative">
           <img className='object-cover w-full h-full' src={movie.image} alt={movie.name} />
         </div>
         <div className='font-sans text-base rounded-full font-semibold bg-black absolute left-3 bottom-0 transform translate-y-1/2 text-white flex justify-center items-center w-9 h-9'>

@@ -10,7 +10,7 @@ const Movies = () => {
   const [filtered, setFiltered] = useState<IMovie []>([]);
   const [page, setPage] = useState(1);
 
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   const filterMovies = (data: IMovie[]) => {
     return data.filter((item, index)=>{
@@ -21,10 +21,16 @@ const Movies = () => {
   }
 
   useEffect(() => {
+    dispatch({
+      type: 'set_page',
+      payload: 1
+    })
+  }, []);
+
+  useEffect(() => {
     setFiltered(filterMovies(movies))
   }, [page, movies]);
   
-
   useEffect(() => {
     setmovies(state.movies)
   }, [state.movies]);

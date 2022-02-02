@@ -4,10 +4,11 @@ import { transliterate as tr, slugify } from 'transliteration';
 import useApi from '../../useApi';
 import { useInput } from './useForm';
 import { AppContext } from 'apps/movies/src/store';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const Addmovie = () => {
   const { id } = useParams();
+  const location = useLocation();
 
   const [ edit, setEdit ] = useState(id ? true : false);
   const [ movieId, setMovieId ] = useState<string>('');
@@ -21,6 +22,15 @@ const Addmovie = () => {
   const { value:rating, setValue:setRating, bind:bindRating, reset:resetRating } = useInput('');
 
   useEffect(() => {
+    // console.log(location);
+    if (location.pathname == '/add') {
+      setEdit(false)
+    }
+  }, [location]);
+  
+
+  useEffect(() => {
+    console.log(edit);
     if (edit) {
       state.movies.find(
         item=> {
@@ -33,7 +43,12 @@ const Addmovie = () => {
           }
         }
       )
+    } else {
+      resetTitle();
+      resetRating();
+      setCover('/assets/noimage.jpg')
     }
+
   }, [edit]);
 
   const handleSubmit = (event: any) => {
