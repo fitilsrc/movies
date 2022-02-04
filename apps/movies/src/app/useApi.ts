@@ -10,7 +10,7 @@ const useApi = () => {
     }
 
     const fetchMovies = async() => {
-        let response = await fetch('/api')
+        let response = await fetch('/api/movie')
         let movies = await response.json()
         return Promise.resolve(movies)
     }
@@ -18,7 +18,7 @@ const useApi = () => {
     const postMovie = async(movie: IMovie) => {
         
         try {
-            const response = await fetch('/api', {
+            const response = await fetch('/api/movie', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ const useApi = () => {
     const putMovie = async(movie: IMovie) => {
         
         try {
-            const response = await fetch('/api', {
+            const response = await fetch('/api/movie', {
                 method: 'put',
                 headers: {
                     'Content-Type': 'application/json'
