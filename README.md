@@ -1,5 +1,3 @@
-
-
 # Movies
 
 This project was generated using [Nx](https://nx.dev).
@@ -8,10 +6,4 @@ This project was generated using [Nx](https://nx.dev).
 
 npm install
 
-бекенд
-
-npm start restapi
-
-фронтенд
-
-npm start movies
+npm run movies
