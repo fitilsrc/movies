@@ -16,11 +16,17 @@
     "baseUrl": ".",
     "paths": {
       "@movies/atom/header": ["libs/atom/header/src/index.ts"],
+      "@movies/atom/header-h1": ["libs/atom/header-h1/src/index.ts"],
+      "@movies/atom/headerh1": ["libs/atom/headerh1/src/index.ts"],
+      "@movies/atom/headerh2": ["libs/atom/headerh2/src/index.ts"],
       "@movies/atom/image": ["libs/atom/image/src/index.ts"],
       "@movies/atom/label": ["libs/atom/label/src/index.ts"],
       "@movies/atom/menulink": ["libs/atom/menulink/src/index.ts"],
+      "@movies/atom/rating": ["libs/atom/rating/src/index.ts"],
+      "@movies/atop/rating": ["libs/atop/rating/src/index.ts"],
       "@movies/molecule/logo": ["libs/molecule/logo/src/index.ts"],
-      "@movies/molecule/menu": ["libs/molecule/menu/src/index.ts"]
+      "@movies/molecule/menu": ["libs/molecule/menu/src/index.ts"],
+      "@movies/molecule/movie": ["libs/molecule/movie/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

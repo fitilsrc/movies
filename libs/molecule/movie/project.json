@@ -1,0 +1,23 @@
+{
+  "root": "libs/molecule/movie",
+  "sourceRoot": "libs/molecule/movie/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/molecule/movie/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/molecule/movie"],
+      "options": {
+        "jestConfig": "libs/molecule/movie/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

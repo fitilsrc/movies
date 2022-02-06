@@ -1,0 +1,23 @@
+{
+  "root": "libs/atom/rating",
+  "sourceRoot": "libs/atom/rating/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/atom/rating/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/atom/rating"],
+      "options": {
+        "jestConfig": "libs/atom/rating/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

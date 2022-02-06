@@ -2,13 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import IMovie from 'apps/movies/src/interfaces/movie';
 import { AppContext } from 'apps/movies/src/store';
-import Movie from '../Movie';
+
+import { MoleculeMovie } from '@movies/molecule/movie';
+import { AtomHeaderH2 } from '@movies/atom/headerh2';
+import { chakra, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import useApi from '../../useApi';
 
 const Dashboard = () => {
   const [movies, setmovies] = useState<IMovie []>([]);
   const [sevendays, setSevendays] = useState<IMovie []>([]);
 
   const { state } = useContext(AppContext);
+
+  const { formatDate } = useApi();
 
   useEffect(() => {
     setmovies(state.movies)
@@ -25,31 +31,56 @@ const Dashboard = () => {
   
 
   return (
-    <div className='flex flex-col max-w-7xl mx-auto'>
-      <div className="pt-8 px-10">
-        <h2 className="font-sans font-semibold text-2xl">Statistics</h2>
-        <h3 className="font-sans text-opacity-70 text-lg">Movies Count</h3>
-        <h4 className="font-sans text-red-600 text-6xl">{ movies.length }</h4>
-      </div>
-      <div className="pt-8 px-10">
-        <h2 className="font-sans font-semibold text-2xl">New movies added over the last seven day</h2>
-      </div>
-      <div className='flex w-full py-8 flex-wrap gap-4 justify-start items-stretch px-10'>
+    <Flex
+      direction={'column'}
+    >
+      <chakra.div
+        pt={'2rem'}
+      >
+        <AtomHeaderH2 text='Statistics' />
+        <Heading
+          as={'h3'}
+          fontFamily={'heading'}
+          fontSize={'lg'}
+          fontWeight={'300'}
+          color={'gray.500'}
+        >
+            Movies Count
+        </Heading>
+        <chakra.div
+          fontFamily={'heading'}
+          fontSize={'6xl'}
+          color={'red.600'}
+        >
+          { movies.length }
+        </chakra.div>
+      </chakra.div>
+      
+      <chakra.div
+        pt={'2rem'}
+      >
+        <AtomHeaderH2 text='New movies added over the last seven day' />
+      </chakra.div>
+      <SimpleGrid 
+        columns={{sm:3, md:4, lg:5}}
+        gap='1rem'
+        py={'2rem'}
+      >
         {sevendays.map(
-          (item)=> {
+          (item, index)=> {
             return (
-            <Movie
-              key={item.id}
+            <MoleculeMovie
+              key={index}
               id={item.id}
-              date={item.date}
+              date={formatDate(item.date)}
               image={item.image}
               name={item.name}
               rating={item.rating} 
             />);
           }
         )}
-      </div>
-    </div>
+      </SimpleGrid>
+    </Flex>
   );
 };
 
