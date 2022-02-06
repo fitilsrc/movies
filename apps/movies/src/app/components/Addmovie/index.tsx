@@ -6,6 +6,10 @@ import { useInput } from './useForm';
 import { AppContext } from 'apps/movies/src/store';
 import { useLocation, useParams } from 'react-router-dom';
 
+import { AtomHeaderH2 } from '@movies/atom/headerh2'
+
+import { Button, chakra, Flex, Input } from '@chakra-ui/react'
+
 const Addmovie = () => {
   const { id } = useParams();
   const location = useLocation();
@@ -22,7 +26,6 @@ const Addmovie = () => {
   const { value:rating, setValue:setRating, bind:bindRating, reset:resetRating } = useInput('');
 
   useEffect(() => {
-    // console.log(location);
     if (location.pathname == '/add') {
       setEdit(false)
     }
@@ -85,47 +88,72 @@ const Addmovie = () => {
   }
 
   return (
-    <div className='flex flex-col max-w-7xl mx-auto'>
-      <div className="pt-8 px-10">
-        <h2 className="font-sans font-semibold text-2xl">Add New Movie to DB</h2>
+    <Flex
+      direction={'column'}
+    >
+      <chakra.div
+        pt={'2rem'}
+      >
+        <AtomHeaderH2 text='Add New Movie to DB' />
         
-        <form className='font-sans text-base flex flex-col gap-4 items-start'>
+        <chakra.form
+          fontFamily={'heading'}
+          display='flex'
+          flexDirection={'column'}
+          gap={'1rem'}
+        >
           
-          <label className="flex flex-col w-full gap-2">
+          <chakra.label
+            display={'flex'}
+            flexDirection={'column'}
+            w={'100%'}
+            gap={'1rem'}
+          >
             <span>Movie title</span>
-            <input
-              type="text" 
-              className="w-full px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded-md focus:border-cyan-500"
+            <Input
+              placeholder='Enter movie title'
               {...bindTitle}
             />
-          </label>
+          </chakra.label>
           
-          <label className="flex flex-col w-full gap-2">
+          <chakra.label
+            display={'flex'}
+            flexDirection={'column'}
+            w={'100%'}
+            gap={'1rem'}
+          >
             <span>Link to Movie cover</span>
-            <input
-              type="text" 
-              className="w-full px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded-md focus:border-cyan-500"
+            <Input
+              placeholder='Enter path to Movie cover image'
               {...bindCover}
             />
-          </label>
+          </chakra.label>
 
-          <label className="flex flex-col w-full gap-2">
+          <chakra.label
+            display={'flex'}
+            flexDirection={'column'}
+            w={'100%'}
+            gap={'1rem'}
+          >
             <span>Movie rating</span>
-            <input
+            <Input
+              type="number"
+              placeholder='Enter movie rating'
               {...bindRating}
-              type="number" 
-              className="w-full px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded-md focus:border-cyan-500"
             />
-          </label>
-          <input
-            className='bg-cyan-500 text-white font-sans font-semibold px-5 py-1 rounded-md transition-all hover:bg-dark-blue cursor-pointer'
-            type="submit"
-            value="Send"
+          </chakra.label>
+          
+          <Button
+            w={'auto'}
+            colorScheme='teal'
             onClick={handleSubmit}
-          />
-        </form>
-      </div>
-    </div>
+          >
+            Send
+          </Button>
+          
+        </chakra.form>
+      </chakra.div>
+    </Flex>
   );
 };
 

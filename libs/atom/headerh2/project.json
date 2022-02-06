@@ -1,0 +1,23 @@
+{
+  "root": "libs/atom/headerh2",
+  "sourceRoot": "libs/atom/headerh2/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/atom/headerh2/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/atom/headerh2"],
+      "options": {
+        "jestConfig": "libs/atom/headerh2/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

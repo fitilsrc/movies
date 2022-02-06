@@ -1,0 +1,23 @@
+{
+  "root": "libs/atom/menulink",
+  "sourceRoot": "libs/atom/menulink/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/atom/menulink/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/atom/menulink"],
+      "options": {
+        "jestConfig": "libs/atom/menulink/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

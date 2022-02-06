@@ -1,6 +1,16 @@
 {
   "version": 2,
   "projects": {
+    "atom-header": "libs/atom/header",
+    "atom-headerh1": "libs/atom/headerh1",
+    "atom-headerh2": "libs/atom/headerh2",
+    "atom-image": "libs/atom/image",
+    "atom-label": "libs/atom/label",
+    "atom-menulink": "libs/atom/menulink",
+    "atom-rating": "libs/atom/rating",
+    "molecule-logo": "libs/molecule/logo",
+    "molecule-menu": "libs/molecule/menu",
+    "molecule-movie": "libs/molecule/movie",
     "movies": "apps/movies",
     "movies-e2e": "apps/movies-e2e",
     "restapi": "apps/restapi"

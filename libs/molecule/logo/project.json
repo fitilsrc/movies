@@ -1,0 +1,23 @@
+{
+  "root": "libs/molecule/logo",
+  "sourceRoot": "libs/molecule/logo/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/molecule/logo/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/molecule/logo"],
+      "options": {
+        "jestConfig": "libs/molecule/logo/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
