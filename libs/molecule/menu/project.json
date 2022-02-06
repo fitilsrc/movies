@@ -1,0 +1,23 @@
+{
+  "root": "libs/molecule/menu",
+  "sourceRoot": "libs/molecule/menu/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/molecule/menu/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/molecule/menu"],
+      "options": {
+        "jestConfig": "libs/molecule/menu/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

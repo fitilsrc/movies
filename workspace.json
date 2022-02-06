@@ -4,6 +4,9 @@
     "atom-header": "libs/atom/header",
     "atom-image": "libs/atom/image",
     "atom-label": "libs/atom/label",
+    "atom-menulink": "libs/atom/menulink",
+    "molecule-logo": "libs/molecule/logo",
+    "molecule-menu": "libs/molecule/menu",
     "movies": "apps/movies",
     "movies-e2e": "apps/movies-e2e",
     "restapi": "apps/restapi"

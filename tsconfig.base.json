@@ -18,7 +18,9 @@
       "@movies/atom/header": ["libs/atom/header/src/index.ts"],
       "@movies/atom/image": ["libs/atom/image/src/index.ts"],
       "@movies/atom/label": ["libs/atom/label/src/index.ts"],
-      "@movies/shared/header": ["libs/shared/header/src/index.ts"]
+      "@movies/atom/menulink": ["libs/atom/menulink/src/index.ts"],
+      "@movies/molecule/logo": ["libs/molecule/logo/src/index.ts"],
+      "@movies/molecule/menu": ["libs/molecule/menu/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
