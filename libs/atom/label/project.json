@@ -1,0 +1,23 @@
+{
+  "root": "libs/atom/label",
+  "sourceRoot": "libs/atom/label/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/atom/label/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/atom/label"],
+      "options": {
+        "jestConfig": "libs/atom/label/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

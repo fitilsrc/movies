@@ -1,6 +1,9 @@
 {
   "version": 2,
   "projects": {
+    "atom-header": "libs/atom/header",
+    "atom-image": "libs/atom/image",
+    "atom-label": "libs/atom/label",
     "movies": "apps/movies",
     "movies-e2e": "apps/movies-e2e",
     "restapi": "apps/restapi"

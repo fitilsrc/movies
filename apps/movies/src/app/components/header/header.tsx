@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { chakra } from '@chakra-ui/react';
 
 const Header = () => {
   return (
-    <div className="bg-dark-blue">
+    <chakra.div
+      bg='main'
+    >
       <div className='max-w-7xl w-full flex justify-between items-center mx-auto h-16 px-10'>
         <Link to='/'>
           <img width="154" height="20" src="/assets/logo.svg" alt="The Best Movie Site" />
@@ -16,7 +19,7 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-    </div>
+    </chakra.div>
   );
 };
 

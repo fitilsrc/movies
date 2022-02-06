@@ -27,7 +27,7 @@ const Dashboard = () => {
   return (
     <div className='flex flex-col max-w-7xl mx-auto'>
       <div className="pt-8 px-10">
-        <h2 className="font-sans font-semibold text-2xl">Statistics 1</h2>
+        <h2 className="font-sans font-semibold text-2xl">Statistics</h2>
         <h3 className="font-sans text-opacity-70 text-lg">Movies Count</h3>
         <h4 className="font-sans text-red-600 text-6xl">{ movies.length }</h4>
       </div>
