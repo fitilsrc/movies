@@ -6,9 +6,8 @@ import { useInput } from './useForm';
 import { AppContext } from 'apps/movies/src/store';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { AtomHeaderH2 } from '@movies/atom/headerh2'
-
-import { Button, chakra, Flex, Input } from '@chakra-ui/react'
+import { Button, chakra, Flex, Heading, Input } from '@chakra-ui/react'
+import { CustomInput } from '@movies/components';
 
 const Addmovie = () => {
   const { id } = useParams();
@@ -50,7 +49,6 @@ const Addmovie = () => {
       resetRating();
       setCover('/assets/noimage.jpg')
     }
-
   }, [edit]);
 
   const handleSubmit = (event: any) => {
@@ -77,6 +75,7 @@ const Addmovie = () => {
     resetTitle();
     resetCover();
     resetRating();
+    
     const getAllMovies = async() => {
       let result = await fetchMovies()
       dispatch({
@@ -84,6 +83,7 @@ const Addmovie = () => {
         payload: result,
       });
     }
+    
     getAllMovies()
   }
 
@@ -94,7 +94,14 @@ const Addmovie = () => {
       <chakra.div
         pt={'2rem'}
       >
-        <AtomHeaderH2 text='Add New Movie to DB' />
+
+        <Heading
+          as={'h2'}
+          fontSize={'2xl'}
+          fontWeight={'600'}
+        >
+          Add New Movie to DB
+        </Heading>
         
         <chakra.form
           fontFamily={'heading'}
@@ -103,45 +110,26 @@ const Addmovie = () => {
           gap={'1rem'}
         >
           
-          <chakra.label
-            display={'flex'}
-            flexDirection={'column'}
-            w={'100%'}
-            gap={'1rem'}
-          >
-            <span>Movie title</span>
-            <Input
-              placeholder='Enter movie title'
-              {...bindTitle}
-            />
-          </chakra.label>
+          <CustomInput 
+            label='Movie title'
+            type="text"
+            placeholder='Enter movie title'
+            {...bindTitle}
+          />
           
-          <chakra.label
-            display={'flex'}
-            flexDirection={'column'}
-            w={'100%'}
-            gap={'1rem'}
-          >
-            <span>Link to Movie cover</span>
-            <Input
-              placeholder='Enter path to Movie cover image'
-              {...bindCover}
-            />
-          </chakra.label>
-
-          <chakra.label
-            display={'flex'}
-            flexDirection={'column'}
-            w={'100%'}
-            gap={'1rem'}
-          >
-            <span>Movie rating</span>
-            <Input
-              type="number"
-              placeholder='Enter movie rating'
-              {...bindRating}
-            />
-          </chakra.label>
+          <CustomInput 
+            label='Link to Movie cover'
+            type="text"
+            placeholder='Enter path to Movie cover image'
+            { ...bindCover }
+          />
+          
+          <CustomInput 
+            label='Movie rating'
+            type="number"
+            placeholder='Enter movie rating'
+            { ...bindRating }
+          />
           
           <Button
             w={'auto'}

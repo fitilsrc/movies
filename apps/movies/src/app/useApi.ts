@@ -1,4 +1,4 @@
-import IMovie from "../interfaces/movie"
+import { IMovie } from "@movies/components"
 
 const useApi = () => {
 

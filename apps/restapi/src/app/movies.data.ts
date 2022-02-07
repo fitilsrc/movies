@@ -1,8 +1,8 @@
 import { Movie } from "./movie.model";
 
 export const movies:Movie[] = [
-    new Movie('1-peacemaker','2022-01-28T14:26:36.499Z','/assets/cover/peacemaker.jpg','Миротворець',79),
-    new Movie('2-euphoria', '2022-01-27T14:26:36.499Z', '/assets/cover/euphoria.jpg', 'Ейфорія', 88),
+    new Movie('1-peacemaker','2022-02-05T14:26:36.499Z','/assets/cover/peacemaker.jpg','Миротворець',79),
+    new Movie('2-euphoria', '2022-02-03T14:26:36.499Z', '/assets/cover/euphoria.jpg', 'Ейфорія', 88),
     new Movie('3-the-book-of-boba-fett', '2022-01-26T14:26:36.499Z', '/assets/cover/the-book-of-boba-fett.jpg', 'Книга Боби Фетта', 99),
     new Movie('4-hollyoaks', '2021-01-26T14:26:36.499Z', '/assets/cover/hollyoaks.jpg', 'Книга Боби Фетта', 87),
     new Movie('5-eternals', '2021-01-26T14:26:36.499Z', '/assets/cover/eternals.jpg', 'Big Brother', 67),

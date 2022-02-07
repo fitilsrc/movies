@@ -8,10 +8,10 @@ export const useInput = (initialValue: string) => {
         setValue,
         reset: () => setValue(""),
         bind: {
-        value,
-        onChange: (event: any) => {
-            setValue(event.target.value);
-        }
+            value,
+            onChange: (event: any) => {
+                setValue(event.target.value);
+            }
         }
     }
 };
