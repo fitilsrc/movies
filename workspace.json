@@ -8,6 +8,7 @@
     "atom-label": "libs/atom/label",
     "atom-menulink": "libs/atom/menulink",
     "atom-rating": "libs/atom/rating",
+    "entity": "libs/entity",
     "molecule-logo": "libs/molecule/logo",
     "molecule-menu": "libs/molecule/menu",
     "molecule-movie": "libs/molecule/movie",
