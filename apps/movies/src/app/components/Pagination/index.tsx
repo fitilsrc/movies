@@ -1,6 +1,9 @@
 import { AppContext } from 'apps/movies/src/store';
 import React, { useContext, useEffect, useState } from 'react';
 
+import { IconButton } from '@chakra-ui/react';
+import { ArrowLeftIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+
 const Pagination = () => {
     const { state } = useContext(AppContext);
     const [page, setPage] = useState(1);
@@ -49,26 +52,34 @@ const Pagination = () => {
 
     return (
         <div className='flex flex-row justify-center gap-4'>
-            <button
+            <IconButton
+                colorScheme='teal'
+                aria-label='First'
+                size='md'
                 onClick={handleFirst}
-            >
-                <img className='w-6 h-6' src="/assets/double-arrow-left.svg" />
-            </button>
-            <button
+                icon={<ArrowLeftIcon />}
+            />
+            <IconButton
+                colorScheme='teal'
+                aria-label='Left'
+                size='md'
                 onClick={handlePrev}
-            >
-                <img className='w-6 h-6' src="/assets/arrow-left.svg" />
-            </button>
-            <button
+                icon={<ChevronLeftIcon />}
+            />
+            <IconButton
+                colorScheme='teal'
+                aria-label='Right'
+                size='md'
                 onClick={handleNext}
-            >
-                <img className='w-6 h-6' src="/assets/arrow-right.svg" />
-            </button>
-            <button
+                icon={<ChevronRightIcon />}
+            />
+            <IconButton
+                colorScheme='teal'
+                aria-label='Last'
+                size='md'
                 onClick={handleLast}
-            >
-                <img className='w-6 h-6' src="/assets/double-arrow-right.svg" />
-            </button>
+                icon={<ArrowRightIcon />}
+            />
         </div>
     );
 };
