@@ -8,18 +8,16 @@ export class MovieController {
 
     @Get()
     getData() {
-        return this.movieService.getData();
+        return this.movieService.getAllMovies();
     }
     
     @Post()
     createMovie(@Body() movie: MovieDto) {
-        console.log('create product', movie);
-        this.movieService.createMovie(movie);
+        this.movieService.addMovie(movie);
     }
 
     @Put()
     updateMovie(@Body() movie: MovieDto) {
-        console.log('update product', movie);
-        this.movieService.updateProduct(movie);
+        this.movieService.updateMovie(movie.id, movie)
     }
 }

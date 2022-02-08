@@ -3,7 +3,7 @@ set -e
 
 SERVER="movies";
 PW="movies";
-DB="moviesdb";
+DB="movies";
 
 echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of [$SERVER]"
 (docker kill $SERVER || :) && \

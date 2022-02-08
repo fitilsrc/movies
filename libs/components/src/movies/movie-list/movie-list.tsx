@@ -12,10 +12,6 @@ export interface MovieListProps {
 
 export function MovieList(props: MovieListProps) {
   
-  useEffect(() => {
-    console.log('redraw');
-  }, [props.movies]);
-  
   return (
     <>
       <SimpleGrid

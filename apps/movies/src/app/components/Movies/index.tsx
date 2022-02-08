@@ -15,7 +15,7 @@ const Movies = () => {
   
   const { state, dispatch } = useContext(AppContext);
 
-  const { formatDate } = useApi();
+  const { fetchMovies, formatDate } = useApi();
 
   const filterMovies = (data: IMovie[]) => {
     return data.filter((item, index)=>{
@@ -24,6 +24,17 @@ const Movies = () => {
       }
     })
   }
+
+  useEffect(() => {
+    const getAllMovies = async() => {
+      let result = await fetchMovies()
+      dispatch({
+        type: 'get_movies',
+        payload: result,
+      });
+    }
+    getAllMovies();
+  }, []);
 
   // Set current page when component mount
 
