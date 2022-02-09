@@ -24,6 +24,7 @@
       "@movies/atom/menulink": ["libs/atom/menulink/src/index.ts"],
       "@movies/atom/rating": ["libs/atom/rating/src/index.ts"],
       "@movies/atop/rating": ["libs/atop/rating/src/index.ts"],
+      "@movies/components": ["libs/components/src/index.ts"],
       "@movies/entity": ["libs/entity/src/index.ts"],
       "@movies/molecule/logo": ["libs/molecule/logo/src/index.ts"],
       "@movies/molecule/menu": ["libs/molecule/menu/src/index.ts"],

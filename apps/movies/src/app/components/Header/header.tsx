@@ -1,8 +1,8 @@
 import React from 'react';
 import { chakra, Flex, Container } from '@chakra-ui/react';
 
-import { MoleculeLogo } from '@movies/molecule/logo';
-import { MoleculeMenu } from '@movies/molecule/menu'
+import { Logo } from '@movies/components';
+import { Menu } from '@movies/components';
 
 const Header = () => {
   return (
@@ -17,8 +17,8 @@ const Header = () => {
           align='center'
           h='64px'
         >
-          <MoleculeLogo />
-          <MoleculeMenu />
+          <Logo />
+          <Menu />
         </Flex>
       </Container>
     </chakra.div>

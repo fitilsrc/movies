@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Flex, SimpleGrid } from '@chakra-ui/react';
+import { chakra, Flex } from '@chakra-ui/react';
 
-import IMovie from 'apps/movies/src/interfaces/movie';
 import { AppContext } from 'apps/movies/src/store';
-import { MoleculeMovie } from '@movies/molecule/movie'
 import Pagination from '../Pagination';
 import useApi from '../../useApi';
+
+import { MovieList, IMovie } from '@movies/components';
 
 const Movies = () => {
   const [movies, setmovies] = useState<IMovie []>([]);
@@ -15,8 +15,8 @@ const Movies = () => {
   
   const { state, dispatch } = useContext(AppContext);
 
-  const { formatDate } = useApi();
-
+  const { fetchMovies, formatDate, useAsync } = useApi();
+  
   const filterMovies = (data: IMovie[]) => {
     return data.filter((item, index)=>{
       if (index <= page*5-1 && index >= page*5-5) {
@@ -25,6 +25,24 @@ const Movies = () => {
     })
   }
 
+  // Async Hook for fetching data from API
+  const { execute, status, value, error } = useAsync(fetchMovies, false);
+
+  useEffect(() => {
+    execute()
+  }, []);
+
+  useEffect(()=>{
+    if (status == "success") {
+      dispatch({
+        type: 'get_movies',
+        payload: value,
+      });
+    }
+  }, [status, value])
+
+  // Set current page when component mount
+
   useEffect(() => {
     dispatch({
       type: 'set_page',
@@ -32,13 +50,21 @@ const Movies = () => {
     })
   }, []);
 
+  // this hook will work when list of movies change or page changed 
+  // filter movies by current page and format date
+
   useEffect(() => {
-    setFiltered(filterMovies(movies))
+    let result = filterMovies(movies).map(item => {return { ...item, 'date': formatDate(item.date) }})
+    setFiltered(result)
   }, [page, movies]);
   
+  // Set movies variable when global movies state changed
+
   useEffect(() => {
     setmovies(state.movies)
   }, [state.movies]);
+
+  // Set page variable when global page state changed
 
   useEffect(() => {
     setPage(state.page)
@@ -46,38 +72,27 @@ const Movies = () => {
   
 
   return (
-    <Flex
-      direction='column'
-    >
-      <SimpleGrid 
-        columns={{sm:3, md:4, lg:5}}
-        gap='1rem'
-        className='flex w-full py-8 flex-wrap justify-start items-stretch'
+    <>
+      <Flex
+        direction='column'
       >
-        {filtered.map(
-          (item, index)=> {
-            return (
-              <MoleculeMovie
-                key={index}
-                id={item.id}
-                image={item.image}
-                name={item.name}
-                rating={item.rating}
-                date={formatDate(item.date)}/>
-            );
-          }
-        )}
-      </SimpleGrid>
-      <Flex 
-        pt='1rem'
-        pb='2rem'
-        justify='center'
-        alignItems='center'
-      >
-        <Pagination />
+        <chakra.div
+          py={'2rem'}
+        >
+          <MovieList
+            movies={ filtered }
+          />
+        </chakra.div>
+        <Flex
+          pt='1rem'
+          pb='2rem'
+          justify='center'
+          alignItems='center'
+        >
+          <Pagination />
+        </Flex>
       </Flex>
-
-    </Flex>
+    </>
   );
 };
 

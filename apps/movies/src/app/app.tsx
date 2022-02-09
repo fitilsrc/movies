@@ -17,18 +17,22 @@ import moviesTheme from './moviesTheme'
 export function App() {
   const { dispatch } = useContext(AppContext);
 
-  const { fetchMovies } = useApi();
+  const { fetchMovies, useAsync } = useApi();
+
+  const { execute, status, value, error } = useAsync(fetchMovies, false);
 
   useEffect(() => {
-    const getAllMovies = async() => {
-      let result = await fetchMovies()
+    execute()
+  }, [])
+
+  useEffect(()=>{
+    if (status == "success") {
       dispatch({
         type: 'get_movies',
-        payload: result,
+        payload: value,
       });
     }
-    getAllMovies();
-  }, []);
+  }, [status])
   
   return (
     <ChakraProvider theme={ moviesTheme }>

@@ -1,28 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { movies } from '../movies.data';
+import { Movie } from '@movies/entity';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { InsertResult, Repository } from 'typeorm';
 
 @Injectable()
 export class MovieService {
 
-    movieslist = movies
+    constructor(
+        @Inject('MOVIE_REPOSITORY')
+        private movieRepository: Repository<Movie>,
+    ) {}
 
-    getData() {
-        return this.movieslist;
+    async getAllMovies(): Promise<Movie[]>{
+        return this.movieRepository.find()
     }
 
-    createMovie(movie) {
-        this.movieslist = [...this.movieslist, {...movie}];
+    async addMovie(movie: Movie): Promise<InsertResult> {
+        return this.movieRepository.insert(movie)
     }
 
-    updateProduct(movie) {
-        this.movieslist = this.movieslist.map(
-        item => {
-            if(item.id == movie.id) {
-            return {...movie}
-            }
-            return item
+    async findeOneMovie(id:number): Promise<Movie> {
+        return this.movieRepository.findOne(id)
+    }
+
+    async updateMovie(id:number, movie: Movie): Promise<Movie> {
+        const movieToupdate = await this.findeOneMovie(id);
+        if (movieToupdate===undefined) {
+            throw new NotFoundException()
         }
-        )
+        await this.movieRepository.update(id, movie);
+        return this.findeOneMovie(id);
     }
-
+ 
 }

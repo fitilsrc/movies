@@ -6,9 +6,8 @@ import { useInput } from './useForm';
 import { AppContext } from 'apps/movies/src/store';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { AtomHeaderH2 } from '@movies/atom/headerh2'
-
-import { Button, chakra, Flex, Input } from '@chakra-ui/react'
+import { Button, chakra, Flex, Heading, Input } from '@chakra-ui/react'
+import { CustomInput } from '@movies/components';
 
 const Addmovie = () => {
   const { id } = useParams();
@@ -17,21 +16,40 @@ const Addmovie = () => {
   const [ edit, setEdit ] = useState(id ? true : false);
   const [ movieId, setMovieId ] = useState<string>('');
   const [ movieDate, setMovieDate ] = useState<string>('');
+  const [ posted, setPosted ] = useState(false);
 
   const { state, dispatch } = useContext(AppContext);
-  const { postMovie, putMovie, fetchMovies } = useApi();
+  const { postMovie, putMovie, fetchMovies, useAsync } = useApi();
   
+  const { execute: executeMovies, status: statusMovies, value: valueMovies, error } = useAsync(fetchMovies, false);
   const { value:title, setValue:setTitle, bind:bindTitle, reset:resetTitle } = useInput('');
   const { value:cover, setValue:setCover, bind:bindCover, reset:resetCover } = useInput('');
   const { value:rating, setValue:setRating, bind:bindRating, reset:resetRating } = useInput('');
 
+  useEffect(()=>{
+    console.log('value - ', valueMovies);
+    if (statusMovies == "success") {
+      dispatch({
+        type: 'get_movies',
+        payload: valueMovies,
+      });
+    }
+  }, [valueMovies, statusMovies])
+
+  useEffect(()=>{
+    if (posted) {
+      console.log('posted');
+      executeMovies();
+      setPosted(false);
+    }
+  },[posted])
+  
   useEffect(() => {
     if (location.pathname == '/add') {
       setEdit(false)
     }
   }, [location]);
   
-
   useEffect(() => {
     if (edit) {
       state.movies.find(
@@ -50,41 +68,34 @@ const Addmovie = () => {
       resetRating();
       setCover('/assets/noimage.jpg')
     }
-
   }, [edit]);
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async(event: any) => {
     event.preventDefault();
 
     if (edit) {
-      putMovie({
+      let response = await putMovie({
         name: title,
         id: movieId,
         date: movieDate,
         image: cover || '/assets/noimage.jpg',
         rating: rating
       })
+      setPosted(true)
     } else {
-      postMovie({
+      let response = await postMovie({
         name: title,
         id: `${state.movies.length+1}-${slugify(title)}`,
         date: (new Date()).toString(),
         image: cover || '/assets/noimage.jpg',
         rating: rating
       })
+      setPosted(true)
     }
 
     resetTitle();
     resetCover();
     resetRating();
-    const getAllMovies = async() => {
-      let result = await fetchMovies()
-      dispatch({
-        type: 'get_movies',
-        payload: result,
-      });
-    }
-    getAllMovies()
   }
 
   return (
@@ -94,7 +105,14 @@ const Addmovie = () => {
       <chakra.div
         pt={'2rem'}
       >
-        <AtomHeaderH2 text='Add New Movie to DB' />
+
+        <Heading
+          as={'h2'}
+          fontSize={'2xl'}
+          fontWeight={'600'}
+        >
+          Add New Movie to DB
+        </Heading>
         
         <chakra.form
           fontFamily={'heading'}
@@ -103,45 +121,26 @@ const Addmovie = () => {
           gap={'1rem'}
         >
           
-          <chakra.label
-            display={'flex'}
-            flexDirection={'column'}
-            w={'100%'}
-            gap={'1rem'}
-          >
-            <span>Movie title</span>
-            <Input
-              placeholder='Enter movie title'
-              {...bindTitle}
-            />
-          </chakra.label>
+          <CustomInput 
+            label='Movie title'
+            type="text"
+            placeholder='Enter movie title'
+            {...bindTitle}
+          />
           
-          <chakra.label
-            display={'flex'}
-            flexDirection={'column'}
-            w={'100%'}
-            gap={'1rem'}
-          >
-            <span>Link to Movie cover</span>
-            <Input
-              placeholder='Enter path to Movie cover image'
-              {...bindCover}
-            />
-          </chakra.label>
-
-          <chakra.label
-            display={'flex'}
-            flexDirection={'column'}
-            w={'100%'}
-            gap={'1rem'}
-          >
-            <span>Movie rating</span>
-            <Input
-              type="number"
-              placeholder='Enter movie rating'
-              {...bindRating}
-            />
-          </chakra.label>
+          <CustomInput 
+            label='Link to Movie cover'
+            type="text"
+            placeholder='Enter path to Movie cover image'
+            { ...bindCover }
+          />
+          
+          <CustomInput 
+            label='Movie rating'
+            type="number"
+            placeholder='Enter movie rating'
+            { ...bindRating }
+          />
           
           <Button
             w={'auto'}

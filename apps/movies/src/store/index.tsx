@@ -1,5 +1,7 @@
 import React, { createContext, Dispatch, useReducer } from "react";
-import IMovie, { StateActions } from "../interfaces/movie";
+
+import { StateActions } from "../interfaces/movie";
+import { IMovie } from "@movies/components";
 
 import moviesReduser from "./reducers/moviesReducer";
 
