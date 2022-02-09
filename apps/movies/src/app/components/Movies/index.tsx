@@ -15,8 +15,8 @@ const Movies = () => {
   
   const { state, dispatch } = useContext(AppContext);
 
-  const { fetchMovies, formatDate } = useApi();
-
+  const { fetchMovies, formatDate, useAsync } = useApi();
+  
   const filterMovies = (data: IMovie[]) => {
     return data.filter((item, index)=>{
       if (index <= page*5-1 && index >= page*5-5) {
@@ -25,16 +25,21 @@ const Movies = () => {
     })
   }
 
+  // Async Hook for fetching data from API
+  const { execute, status, value, error } = useAsync(fetchMovies, false);
+
   useEffect(() => {
-    const getAllMovies = async() => {
-      let result = await fetchMovies()
+    execute()
+  }, []);
+
+  useEffect(()=>{
+    if (status == "success") {
       dispatch({
         type: 'get_movies',
-        payload: result,
+        payload: value,
       });
     }
-    getAllMovies();
-  }, []);
+  }, [status, value])
 
   // Set current page when component mount
 

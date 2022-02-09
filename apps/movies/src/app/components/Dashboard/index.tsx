@@ -10,9 +10,23 @@ const Dashboard = () => {
   const [movies, setmovies] = useState<IMovie []>([]);
   const [sevendays, setSevendays] = useState<IMovie []>([]);
 
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
-  const { formatDate } = useApi();
+  const { formatDate, fetchMovies, useAsync } = useApi();
+  const { execute, status, value, error } = useAsync(fetchMovies, false);
+
+  useEffect(() => {
+    execute()
+  }, []);
+
+  useEffect(()=>{
+    if (status == "success") {
+      dispatch({
+        type: 'get_movies',
+        payload: value,
+      });
+    }
+  }, [status, value])
 
   // Set movies variable when global movies state changed
 
